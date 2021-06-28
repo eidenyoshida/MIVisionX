@@ -66,6 +66,7 @@ ENDIF()
 option(NEURAL_NET "Build MIVisionX with Neural Net Support"   ON)
 option(ROCAL      "Build MIVisionX with ROCAL Support"       ON)
 option(LOOM       "Build MIVisionX with LOOM Support"         ON)
+option(BUILD_ADDRESS_SANITIZER "Build MIVisionX with address sanitizer enabled" OFF)
 
 if (NOT DEFINED BACKEND)
     SET(BACKEND "OPENCL")   # set default backend to OPENCL
@@ -85,6 +86,12 @@ if(APPLE)
   set(CMAKE_MACOSX_RPATH 1)
   set(GPU_SUPPORT OFF)
   message("-- ${Magenta}Apple macOS Detected -- GPU Support turned OFF${ColourReset}")
+endif()
+
+if(BUILD_ADDRESS_SANITIZER)
+  message("ADDRESS_SANITIZER ON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -shared-libasan")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -shared-libasan")
 endif()
 
 add_subdirectory(amd_openvx)
@@ -170,3 +177,5 @@ else()
 endif()
 
 include(CPack)
+
+message("CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ***************************************************************************")

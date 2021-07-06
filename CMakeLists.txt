@@ -92,6 +92,7 @@ if(BUILD_ADDRESS_SANITIZER)
   message("ADDRESS_SANITIZER ON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -shared-libasan")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -shared-libasan")
+  add_link_options(-fuse-ld=lld)
 endif()
 
 add_subdirectory(amd_openvx)
